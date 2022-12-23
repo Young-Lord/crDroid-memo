@@ -1,0 +1,25 @@
+name: sysinfo
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install deps
+        run: |
+          sudo apt update
+          sudo apt install -y neofetch
+          neofetch
+          df -h
+
+      - name: 上传附件
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: |
+            out
+          retention-days: 10
+    
